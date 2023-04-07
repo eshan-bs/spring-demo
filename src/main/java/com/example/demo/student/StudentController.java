@@ -8,7 +8,7 @@ import java.time.Month;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/student")
+@RequestMapping("api/student")
 public class StudentController {
 
     private final StudentService studentService;
@@ -16,6 +16,11 @@ public class StudentController {
     @Autowired
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
+    }
+
+    @GetMapping(path="{studentId}")
+    public Student getOneStudent(@PathVariable("studentId") Long studentId){
+        return studentService.getOneStudent(studentId);
     }
 
     @GetMapping

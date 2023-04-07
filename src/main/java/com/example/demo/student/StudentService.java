@@ -59,4 +59,9 @@ public class StudentService {
                 });
 
     }
+
+    public Student getOneStudent(Long studentId) {
+        return studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException("No student with the id " + studentId));
+    }
 }
