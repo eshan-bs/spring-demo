@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.enums.Authority;
 import com.example.demo.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/admin").hasAuthority(Authority.ADMIN.toString())
                         .requestMatchers("/", "/styles.css").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -38,21 +40,11 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    @Bean
-//    public UserDetailsService userDetailsService(){
-//
-//        return new MyUserDetailsService();
-//        /*
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("mojo")
-//                        .password("1234")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//        */
-//    }
+@Bean
+public UserDetailsService userDetailsService(){
+
+    return this.myUserDetailsService;
+}
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){

@@ -1,22 +1,33 @@
 package com.example.demo.model;
 
+import com.example.demo.enums.Authority;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-public class User {
+public class MyUser {
 
     @Id
     @GeneratedValue
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String name;
     private String password;
     private String email;
     private String role;
+    private List<Authority> authorities;
+
+    public MyUser() {
+        authorities = new ArrayList<Authority>();
+        authorities.add(Authority.USER);
+
+    }
 
     public Long getId() {
         return id;
@@ -26,12 +37,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String name) {
-        this.username = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -56,5 +67,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 }
